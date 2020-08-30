@@ -1,0 +1,23 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t sirajalik/multi -f ./client/Dockerfile.dev ./client
+
+scripts:
+  - docker run -e CI=true sirajalik/multi npm run test -- --coverage
+
+after_success:
+  - docker build -t sirajalik/multi-client ./client
+  - docker build -t sirajalik/multi-nginx ./nginx
+  - docker build -t sirajalik/multi-server ./server
+  - docker build -t sirajalik/multi-worker ./worker
+  #Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # take these images to docker hub
+  - docker push sirajalik/multi-client
+  - docker push sirajalik/multi-nginx
+  - docker push sirajalik/multi-server
+  - docker push sirajalik/multi-worker
