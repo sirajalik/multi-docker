@@ -10,21 +10,21 @@
     },
     {
       "name": "server",
-      "image": "sirajalik/server",
+      "image": "sirajalik/multi-server",
       "hostname": "api",
       "essential": false,
       "memory": 128
     },
     {
       "name": "worker",
-      "image": "sirajalik/worker",
+      "image": "sirajalik/multi-worker",
       "hostname": "worker",
       "essential": false,
       "memory": 128
     },
     {
       "name": "nginx",
-      "image": "sirajalik/nginx",
+      "image": "sirajalik/multi-nginx",
       "hostname": "nginx",
       "essential": true,
       "portMappings": [
